@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method = "post" action="{% url 'submitcontact' %}" class="mx-4 my-4 px-4 py-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Full Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Your full name" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="name@example.com" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div>
+        <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+{% endblock content %}

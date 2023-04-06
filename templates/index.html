@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %} Blog | Homepage {% endblock title %}
+{% block head %}
+<style>
+  .card-img-top {
+    height: 300px; 
+    width: 100%;
+    object-fit: cover;
+  }
+  </style>
+{% endblock head %}
+{% block content %}
+
+<div id="carouselExample" class="carousel slide mx-1 my-4">
+  <div class="carousel-inner">
+    <div
+      class="carousel-item active"
+      style="display: flex; align-items: center; justify-content: center">
+      <img
+        src="static\istockphoto-1220573371-612x612.jpg"
+        class="d-block w-100 h-100"
+        alt="static\sad1.jpg"
+      />
+      <div class="carousel-caption text-end text-center">
+        <h1>Welcome to Random Aid</h1>
+        <p>We Post News and Information Here</p>
+        <a class="btn btn-primary" href="signup">Sign Up</a>
+        <a class="btn btn-secondary" href="loginuser">Sign In</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!--   3x3 Card  -->
+
+<div class="row">
+  {% for post in posts %}
+  <div class="col-md-4">
+    <div class="card border m-3" style="width: 25rem;">
+      <img src="{{ post.image }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.description|slice:":5" }}</p>
+        <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+  
+  
+
+  {% endblock content %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block head %}
+<style>
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+  form {
+    display: inline-block;
+    margin-top: 10px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+{% endblock head %} {% block content %}
+<h1>Welcome, {{ user.username }}</h1>
+<!-- Profile picture -->
+<!-- Create a blog -->
+<div>
+  <form method="post" action=" {% url 'userpage' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="image">
+    <input type="text" name="title" placeholder="Blog title" />
+    <textarea name="description" placeholder="Blog description"></textarea>
+    <input type="submit" value="Create blog" />
+  </form>
+</div>
+
+<!-- Blog list -->
+<div style="width: 1000px; margin: 0 auto">
+  
+  {% for post in posts %}
+  <div class="card" style="width: auto; margin-top: 20px; margin-bottom: 20px">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <p class="card-text">{{ post.description }}</p>
+      <p class="card-text">By {{ post.author }}</p>
+      <a href="#" class="btn btn-primary">Read More</a>
+
+      {% if user == post.author or user.is_superuser %}
+      <form method="POST" action="{% url 'delete_post' post.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    {% endif %}
+    
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
